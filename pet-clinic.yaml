@@ -1,0 +1,12 @@
+apiVersion: v2
+kind: Pod
+metadata:
+  name: pet-clinic01
+spec:
+  containers:
+    - name: pet-clinic-to-deploy
+      image: michaelssss88/pet-clinic:1.0.0
+      ports:
+        - name: web
+          containerPort: 8080
+          protocol: TCP

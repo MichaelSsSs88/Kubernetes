@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: holaaws-101
+spec:
+  containers:
+    - name: holaaws-101
+      image: busybox
+      args:
+        - echo
+        - "Hola AWSA101"
