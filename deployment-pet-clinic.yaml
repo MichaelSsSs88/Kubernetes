@@ -2,12 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pets-app-deployment
-  namespace: default
-##  namespace: pets-app-namespace
   labels:
     app: pets-app-deployment
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: pets-app-deployment
@@ -17,8 +15,8 @@ spec:
         app: pets-app-deployment
     spec:
       containers:
-        - name: pets-app-deployment
-          image: us.gcr.io/wired-rex-393519/pet-clinic:1.0.2
+        - name: pet-clinic-image
+          image: us.gcr.io/wired-rex-393519/pet-clinic:1.0.3
           ports:
             - name: web
               containerPort: 8080

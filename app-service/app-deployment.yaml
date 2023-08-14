@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  app-deployment
+  namespace: default
+  labels:
+    app:  app-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-deployment
+  template:
+    metadata:
+      labels:
+        app:  app-deployment
+    spec:
+      containers:
+      - name:  app-deployment-container
+        image:  us.gcr.io/wired-rex-393519/pet-clinic:1.0.3
+        ports:
+          - name: web
+            containerPort: 8080
+            protocol: TCP
+        env:
+        - name: NGINX_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: app-configmap
+              key: NGINX_PORT
+        - name: DATABASE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: app-configmap
+              key: DATABASE_HOST
+        volumeMounts:
+        - name: config
+          mountPath: /etc/nginx/conf.d
+          readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: app-configmap
+            items:
+            - key: "default.conf"
+              path: "default.conf"
